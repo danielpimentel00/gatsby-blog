@@ -18,11 +18,14 @@ export default ({ data }) => (
   <Layout>
     <div>
       <Seo title="Home"></Seo>
-      <h1>Daniel's Thoughts</h1>
-      <h4>{data.allMarkdownRemark.totalCount}</h4>
+      <h1>Daniel's Certifications</h1>
+      <h4>
+        {data.allMarkdownRemark.totalCount}{" "}
+        {data.allMarkdownRemark.totalCount === 1 ? "Post" : "Posts"}
+      </h4>
       {data.allMarkdownRemark.edges.map(({ node }) => (
         <div key={node.id}>
-          <BlogLink to="node.fields.slug">
+          <BlogLink to={node.fields.slug}>
             <BlogTitle>
               {node.frontmatter.title} - {node.frontmatter.date}
             </BlogTitle>
@@ -49,7 +52,6 @@ export const query = graphql`
         node {
           id
           frontmatter {
-            description
             title
             date
           }
